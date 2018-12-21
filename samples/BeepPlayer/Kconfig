@@ -1,0 +1,62 @@
+
+# Kconfig file for package BeepPlayer
+menuconfig PKG_USING_BEEPPLAYER
+    bool "a BeepPlayer package for rt-thread"
+    default n
+
+if PKG_USING_BEEPPLAYER
+
+    config PKG_BEEPPLAYER_PATH
+        string
+        default "/packages/multimedia/BeepPlayer"
+
+    config PKG_BEEP_PWM_DEVICE
+        string "Beep pwm device"
+        default "pwm1"
+
+    config PKG_BEEP_PWM_CH
+        int "Beep pwm channel"
+        default 1
+
+    config PKG_BEEP_KEY_PLAY_PIN
+        int "Play/Stop key PIN"
+        default 2
+
+    config PKG_BEEP_KEY_LAST_PIN
+        int "Last song key PIN"
+        default 1
+        
+    config PKG_BEEP_KEY_NEXT_PIN
+        int "Next song key PIN"
+        default 3
+
+    config PKG_BEEP_KEY_PRESS_LEVEL
+        int "Key press level"
+        default 0
+		help
+		    Key press low level input 0 else input 1
+
+    config PKG_BEEP_LED_PIN
+        int "LED PIN"
+        default 21
+		
+    choice
+        prompt "Version"
+        default PKG_USING_BEEPPLAYER_LATEST_VERSION
+        help
+            Select the package version
+
+        config PKG_USING_BEEPPLAYER_V001
+            bool "v0.0.1"
+
+        config PKG_USING_BEEPPLAYER_LATEST_VERSION
+            bool "latest"
+    endchoice
+          
+    config PKG_BEEPPLAYER_VER
+       string
+       default "v0.0.1"    if PKG_USING_BEEPPLAYER_V001
+       default "latest"    if PKG_USING_BEEPPLAYER_LATEST_VERSION
+
+endif
+

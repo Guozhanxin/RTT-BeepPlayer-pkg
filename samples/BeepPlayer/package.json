@@ -1,0 +1,12 @@
+
+{
+    "name": "BeepPlayer",
+    "description": "a BeepPlayer package for rt-thread",
+    "keywords": [
+        "BeepPlayer"
+    ],
+    "site" : [
+    {"version" : "v0.0.1", "URL" : "https://github.com/Guozhanxin/RTT-BeepPlayer-pkg.git", "filename" : "BeepPlayer-0.0.1.zip","VER_SHA" : ""},
+    {"version" : "latest", "URL" : "https://github.com/Guozhanxin/RTT-BeepPlayer-pkg.git", "filename" : "Null for git package","VER_SHA" : "master"}
+    ]
+}
