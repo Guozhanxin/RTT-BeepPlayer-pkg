@@ -13,48 +13,26 @@
  */
 #include <rtthread.h>
 #include "beep.h"
-#include "decode.h"
 
-const struct beep_song song1 =
-{
-    .name = "两只老虎",
-    .data = {
-        0x15, 0x02, 0x16, 0x02, 0x17, 0x02, 0x15, 0x02, 0x15, 0x02,
-        0x16, 0x02, 0x17, 0x02, 0x15, 0x02, 0x17, 0x02, 0x18, 0x02,
-        0x19, 0x01, 0x17, 0x02, 0x18, 0x02, 0x19, 0x01, 0x19, 0x03,
-        0x1A, 0x03, 0x19, 0x03, 0x18, 0x03, 0x17, 0x02, 0x15, 0x16,
-        0x19, 0x03, 0x1A, 0x03, 0x19, 0x03, 0x18, 0x03, 0x17, 0x02,
-        0x15, 0x16, 0x15, 0x02, 0x0F, 0x02, 0x15, 0x01, 0x15, 0x02,
-        0x0F, 0x02, 0x15, 0x01, 0x00, 0x00
-    }
-};
+uint16_t freq_tab[12]  = {262, 277, 294, 311, 330, 349, 369, 392, 415, 440, 466, 494}; //原始频率表 CDEFGAB
+uint8_t beep_volume = 3;
 
 int main(void)
 {
     /* user app entry */
-    struct beep_song_data data;
-    int len, i;
-    char name[20];
+    int i;
 
     beep_init();
-    beep_song_decode_init();
 
-    beep_song_get_name(&song1, name);
-    rt_kprintf("正在播放：%s\n", name);
-
-    len = beep_song_get_len(&song1);
-    while (i < len)
+    for (i = 0; i < 12; i++)
     {
-        /* 解码音乐数据 */
-        beep_song_get_data(&song1, i, &data);
-        beep_set(data.freq, 3);
+        beep_set(freq_tab[i], beep_volume);
         beep_on();
 
-        rt_thread_mdelay(data.sound_len);
+        rt_thread_mdelay(500);
 
         beep_off();
-        rt_thread_mdelay(data.nosound_len);
-        i++;
+        rt_thread_mdelay(500);
     }
 
     return 0;

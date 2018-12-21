@@ -11,29 +11,44 @@
  * Date           Author       Notes
  * 2015-07-29     Arda.Fu      first implementation
  */
-#include <rtthread.h>
-#include "beep.h"
 
-uint16_t freq_tab[12]  = {262, 277, 294, 311, 330, 349, 369, 392, 415, 440, 466, 494}; //原始频率表 CDEFGAB
-uint8_t beep_volume = 3;
+#include <rtthread.h>
+#include "led.h"
+#include "button.h"
+
+#define KEY_PIN          0
+#define KEY_PRESS_VALUE  1
+
+void key_cb(struct my_button *button)
+{
+    switch (button->event)
+    {
+    case BUTTON_EVENT_CLICK_UP:
+        led_toggle();
+        rt_kprintf("This is click up callback!\n");
+        break;
+    case BUTTON_EVENT_HOLD_CYC:
+        rt_kprintf("This is hold cyc callback!\n");
+        break;
+    default:
+        ;
+    }
+}
 
 int main(void)
 {
     /* user app entry */
-    int i;
+    static struct my_button key = {0};
 
-    beep_init();
+    led_init();
 
-    for (i = 0; i < 12; i++)
-    {
-        beep_set(freq_tab[i], beep_volume);
-        beep_on();
+    key.press_logic_level = KEY_PRESS_VALUE;
+    key.hold_cyc_period = 100;
+    key.cb = (my_button_callback)key_cb;
+    key.pin = KEY_PIN;
 
-        rt_thread_mdelay(500);
+    my_button_register(&key);
+    my_button_start();
 
-        beep_off();
-        rt_thread_mdelay(500);
-    }
-
-    return 0;
+    return RT_EOK;
 }
