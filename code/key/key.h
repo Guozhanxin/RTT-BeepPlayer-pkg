@@ -14,9 +14,9 @@
 #include "button.h"
 #include "player.h"
 
-#define KEY_PLAY_PIN     67
-#define KEY_LAST_PIN     66
-#define KEY_NEXT_PIN     68
+#define KEY_PLAY_PIN     2
+#define KEY_LAST_PIN     1
+#define KEY_NEXT_PIN     3
 #define KEY_PRESS_LEVEL  0
 
 int key_init(void);                     //按键初始化

@@ -16,8 +16,8 @@
 #include "led.h"
 #include "button.h"
 
-#define KEY_PIN          0
-#define KEY_PRESS_VALUE  1
+#define KEY_PIN          1
+#define KEY_PRESS_VALUE  0
 
 void key_cb(struct my_button *button)
 {

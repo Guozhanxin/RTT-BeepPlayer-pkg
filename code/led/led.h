@@ -11,7 +11,7 @@
 #ifndef LED_H
 #define LED_H
 
-#define LED_PIN     89
+#define LED_PIN     21
 
 int led_init(void);                     //LED 灯初始化
 int led_on(void);                       //LED 灯亮

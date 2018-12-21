@@ -13,8 +13,8 @@
 
 #include <rtthread.h>
 
-#define BEEP_PWM_DEVICE  "pwm2"
-#define BEEP_PWM_CH      4
+#define BEEP_PWM_DEVICE  "pwm1"
+#define BEEP_PWM_CH      1
 
 int beep_init(void);                         //蜂鸣器初始化
 int beep_on(void);                           //蜂鸣器开
